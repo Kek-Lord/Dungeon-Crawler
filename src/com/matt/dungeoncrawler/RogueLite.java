@@ -75,7 +75,8 @@ public class RogueLite {
         switch (chosenPath) {
             case 1:
                 filename = "assets/images/hallway.txt";
-                System.out.println("Go down the hallway? y/n: ");
+                System.out.println("Go down the hallway?");
+                System.out.println("1 - Yes\n2 - No (you go down anyway lol");
                 break;
             case 2:
                 filename = "assets/images/hallway2.txt"; // Add your second path image here
@@ -102,29 +103,33 @@ public class RogueLite {
     }
 
     private static void choosePath() {
-        double hallwayAmount = Math.ceil(Math.random() * 3);
-        long roundedValue = Math.round(hallwayAmount);
-        int intValue = (int) roundedValue;
+    	int intValue = (int) (Math.random() * 3) + 1;
 
         switch (intValue) {
-            case 1:
-                displayPathImage(intValue);
-                String input = scanner.nextLine();
-                break;
-            case 2:
-                displayPathImage(intValue);
-                int input2 = scanner.nextInt();
-                break;
-            case 3:
-                System.out.println("You see three paths. One to a shop, one to the left, and one to the right");
-                int input3 = scanner.nextInt();
+        case 1 -> {
+            displayPathImage(intValue);
+            String input = scanner.nextLine();
+            // Handle input if necessary
+        }
+        case 2 -> {
+            displayPathImage(intValue);
+            int input = scanner.nextInt();
+            scanner.nextLine(); // Consume newline if more inputs follow
+            // Handle input if necessary
+        }
+        case 3 -> {
+            System.out.println("You see three paths. One to a shop, one to the left, and one to the right");
+            int input = scanner.nextInt();
+            scanner.nextLine(); // Consume newline if more inputs follow
+            // Handle input if necessary
         }
     }
+}
 
     private static void encounter() {
         Encounter encounter = selectEncounter();
         if (encounter != null) {
-            encounter.startEncounter();
+            encounter.startEncounter(playerCharacter, scanner);
         }
     }
 
