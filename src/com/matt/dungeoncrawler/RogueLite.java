@@ -30,7 +30,7 @@ public class RogueLite {
     }
 
     private static void displayWelcomeMessage() {
-        System.out.println("Welcome to the dungeon crawler!");
+        System.out.println("Welcome to the dungeon crawler!\n");
         System.out.println("Choose a class!\n1 - Barbarian\n2 - Ranger\n3 - Wizard");
     }
 
@@ -40,22 +40,22 @@ public class RogueLite {
 
         switch (chosenClass) {
             case 1:
-                System.out.println("You chose the Barbarian!");
+                System.out.println("\nYou chose the Barbarian!");
                 break;
             case 2:
-                System.out.println("You chose the Ranger!");
+                System.out.println("\nYou chose the Ranger!");
                 break;
             case 3:
-                System.out.println("You chose the Wizard!");
+                System.out.println("\nYou chose the Wizard!");
                 break;
             default:
-                System.out.println("Invalid choice, please choose a class by using a number between 1-3!");
+                System.out.println("\nInvalid choice, please choose a class by using a number between 1-3!");
                 break;
         }
     }
 
     private static void createCharacter() {
-        System.out.println("Enter Character Name:");
+        System.out.println("Enter Character Name:\n");
         String name = scanner.nextLine();
 
         playerCharacter = new Barbarian(name, 10, 8); // create a new Barbarian class to
@@ -75,13 +75,9 @@ public class RogueLite {
         switch (chosenPath) {
             case 1:
                 filename = "assets/images/hallway.txt";
-                System.out.println("Go down the hallway?");
-                System.out.println("1 - Yes\n2 - No (you go down anyway lol");
                 break;
             case 2:
                 filename = "assets/images/hallway2.txt"; // Add your second path image here
-                System.out.println("You see two paths. One going left, another going right");
-                System.out.println("1 - Take the left path\n2 - Take the right path");
                 break;
             case 3:
                 filename = "assets/images/hallway3.txt"; // Add your third path image here
@@ -108,17 +104,21 @@ public class RogueLite {
         switch (intValue) {
         case 1 -> {
             displayPathImage(intValue);
+            System.out.println("\nGo down the hallway?");
+            System.out.println("1 - Yes\n2 - No (you go down anyway lol");
             String input = scanner.nextLine();
             // Handle input if necessary
         }
         case 2 -> {
             displayPathImage(intValue);
+            System.out.println("\nYou see two paths. One going left, another going right");
+            System.out.println("1 - Take the left path\n2 - Take the right path");
             int input = scanner.nextInt();
             scanner.nextLine(); // Consume newline if more inputs follow
             // Handle input if necessary
         }
         case 3 -> {
-            System.out.println("You see three paths. One to a shop, one to the left, and one to the right");
+            System.out.println("\nYou see three paths. One to a shop, one to the left, and one to the right");
             int input = scanner.nextInt();
             scanner.nextLine(); // Consume newline if more inputs follow
             // Handle input if necessary
@@ -130,6 +130,7 @@ public class RogueLite {
         Encounter encounter = selectEncounter();
         if (encounter != null) {
             encounter.startEncounter(playerCharacter, scanner);
+            encounter.endEncounter(playerCharacter, scanner);
         }
     }
 

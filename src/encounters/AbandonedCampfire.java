@@ -60,6 +60,7 @@ public class AbandonedCampfire extends Encounter {
 
 	        if (choice.equalsIgnoreCase("y")) {
 	            player.addWeapon(foundWeapon);
+	            player.equipWeapon(foundWeapon);
 	            System.out.println("You have equipped the " + foundWeapon.getName() + "!\n");
 	        } else {
 	            System.out.println("You decide not to equip the " + foundWeapon.getName() + ", and left it behind.");

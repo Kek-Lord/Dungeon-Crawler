@@ -1,12 +1,10 @@
 package com.matt.dungeoncrawler;
 
 public class Barbarian extends Character {
-	int strength;
-	
-	public Barbarian(String name, int health, int strength) {
-		super(name, health);
-		this.strength = strength;
-	}
+    public Barbarian(String name, int health, int dmg) {
+        super(name, health);
+        this.baseDamage = dmg;  // Set the base damage from parent class
+    }
 	
 	@Override
 	public void attack() {
@@ -14,8 +12,13 @@ public class Barbarian extends Character {
 	}
 	
 	public void displayStats() {
-		System.out.println("Name: " + name);
-		System.out.println("Health: " + health);
-		System.out.println("Strength: " + strength);
-	}
+        System.out.println("\nName: " + name);
+        System.out.println("Health: " + health);
+        System.out.println("Base Damage: " + baseDamage);
+        System.out.println("Total Damage: " + getTotalAttack());
+        if (equippedWeapon != null) {
+            System.out.println("Equipped Weapon: " + equippedWeapon.getName() + 
+                             " (+" + equippedWeapon.getAttackBonus() + " damage)");
+        }
+    }
 }

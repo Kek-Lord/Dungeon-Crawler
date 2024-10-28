@@ -5,6 +5,6 @@ import java.util.Scanner;
 
 public class AltarOfSacrifice extends Encounter {
 	public void startEncounter(Character playerScanner, Scanner scanner) {
-		System.out.println("AltarOfSacrifice");
+		System.out.println("\nAltarOfSacrifice");
 	}
 }
