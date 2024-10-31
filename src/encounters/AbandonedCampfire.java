@@ -38,7 +38,7 @@ public class AbandonedCampfire extends Encounter {
     }
 	
 	public void searchCamp(Character player, Scanner scanner) {
-	    int randomInt = (int) (Math.random() * 5) + 1; // Generate a random number between 1-5 inclusive
+	    int randomInt = (int) (Math.random() * 5) + 1;
 	    Gear foundWeapon = null;
 
 	    switch (randomInt) {
@@ -54,20 +54,26 @@ public class AbandonedCampfire extends Encounter {
 	        System.out.println(foundWeapon.getStats());
 	        System.out.print("\nWould you like to equip it? y/n: ");
 	        
-	        // Read user's choice to equip or not
-	        scanner.nextLine(); // Consume leftover newline from previous input
+	        scanner.nextLine();
 	        String choice = scanner.nextLine();
 
 	        if (choice.equalsIgnoreCase("y")) {
-	            player.addWeapon(foundWeapon);
-	            player.equipWeapon(foundWeapon);
+	            // If this is the first weapon, just equip it
+	            if (player.getEquippedWeapon() == null) {
+	                player.addWeapon(foundWeapon);
+	                player.equipWeapon(foundWeapon);
+	            } else {
+	                // If already have a weapon equipped, handle the swap
+	                Gear previousWeapon = player.getEquippedWeapon();
+	                player.addWeapon(previousWeapon);  // Add old weapon to inventory
+	                player.equipWeapon(foundWeapon);   // Equip new weapon
+	            }
 	            System.out.println("You have equipped the " + foundWeapon.getName() + "!\n");
 	        } else {
-	            System.out.println("You decide not to equip the " + foundWeapon.getName() + ", and left it behind.");
+	            // If they don't want to equip it, just add to inventory
+	            player.addWeapon(foundWeapon);
+	            System.out.println("Added " + foundWeapon.getName() + " to inventory.");
 	        }
 	    }
 	}
-
-
-	
 }

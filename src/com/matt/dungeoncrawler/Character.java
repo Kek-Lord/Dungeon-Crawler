@@ -22,6 +22,10 @@ public abstract class Character {
         this.equippedArmour = null;
         this.baseDamage = 0;  // Initialize base damage
     }
+    
+    public Gear getEquippedWeapon() {
+        return equippedWeapon;
+    }
 
     public void attack() {
         System.out.println(name + " is attacking!");
@@ -81,31 +85,37 @@ public abstract class Character {
         scanner.nextLine();
         
         if (gearType == 1) {
-            // First add currently equipped weapon back to the list if there is one
-            if (equippedWeapon != null && !weapons.contains(equippedWeapon)) {
-                weapons.add(equippedWeapon);
+            if (weapons.isEmpty()) {
+                System.out.println("You have no weapons in your inventory to switch to!");
+                return;
             }
-            
+
             System.out.println("Current weapons in inventory:");
             for(int i = 0; i < weapons.size(); i++) {
                 System.out.println((i+1) + ": " + weapons.get(i).getName() + " (Attack: " + weapons.get(i).getAttackBonus() + ")");
             }
             
-            // Show currently equipped weapon if there is one
             if (equippedWeapon != null) {
                 System.out.println("\nCurrently equipped: " + equippedWeapon.getName() + " (Attack: " + equippedWeapon.getAttackBonus() + ")");
             }
             
             System.out.println("\nChoose weapon to equip (enter number):");
             int weaponChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             
             if (weaponChoice > 0 && weaponChoice <= weapons.size()) {
                 // Get the weapon they want to equip
                 Gear weaponToEquip = weapons.get(weaponChoice - 1);
                 
-                // Remove the chosen weapon from the inventory and equip it
+                // Remove the chosen weapon from inventory
                 weapons.remove(weaponChoice - 1);
+                
+                // If there was a weapon equipped, add it to inventory
+                if (equippedWeapon != null) {
+                    weapons.add(equippedWeapon);
+                }
+                
+                // Equip the new weapon
                 equipWeapon(weaponToEquip);
                 
                 System.out.println("\nYou equipped the " + weaponToEquip.getName());
@@ -113,7 +123,7 @@ public abstract class Character {
             } else {
                 System.out.println("Invalid weapon choice!");
             }
-        } else {
+        } else if (gearType == 2) {
             System.out.println("Current armour:");
             for(int i = 0; i < armour.size(); i++) {
                 System.out.println((i+1) + ": " + armour.get(i).getName() + " (Defense: " + armour.get(i).getDefenseBonus() + ")");
