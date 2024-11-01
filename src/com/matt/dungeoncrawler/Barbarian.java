@@ -16,9 +16,9 @@ public class Barbarian extends Character {
         System.out.println("Health: " + health);
         System.out.println("Base Damage: " + baseDamage);
         System.out.println("Total Damage: " + getTotalAttack());
-        if (equippedWeapon != null) {
-            System.out.println("Equipped Weapon: " + equippedWeapon.getName() + 
-                             " (+" + equippedWeapon.getAttackBonus() + " damage)");
+        if (getEquippedWeapon() != null) {
+            System.out.println("Equipped Weapon: " + getEquippedWeapon().getName()+ 
+                             " (+" + getEquippedWeapon().getAttackBonus() + " damage)");
         }
     }
 }

@@ -59,15 +59,9 @@ public class AbandonedCampfire extends Encounter {
 
 	        if (choice.equalsIgnoreCase("y")) {
 	            // If this is the first weapon, just equip it
-	            if (player.getEquippedWeapon() == null) {
-	                player.addWeapon(foundWeapon);
-	                player.equipWeapon(foundWeapon);
-	            } else {
-	                // If already have a weapon equipped, handle the swap
-	                Gear previousWeapon = player.getEquippedWeapon();
-	                player.addWeapon(previousWeapon);  // Add old weapon to inventory
-	                player.equipWeapon(foundWeapon);   // Equip new weapon
-	            }
+	        	player.addWeapon(foundWeapon);
+	        	player.equipWeapon(foundWeapon);
+	           
 	            System.out.println("You have equipped the " + foundWeapon.getName() + "!\n");
 	        } else {
 	            // If they don't want to equip it, just add to inventory

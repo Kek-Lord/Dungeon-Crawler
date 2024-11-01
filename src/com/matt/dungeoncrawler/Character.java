@@ -8,7 +8,7 @@ public abstract class Character {
     int health;
     ArrayList<Gear> weapons;
     ArrayList<Gear> armour;
-    Gear equippedWeapon;
+    int equippedWeaponIndex;
     Gear equippedArmour;
     protected int baseDamage;  // Changed dmg to baseDamage and made it protected
     boolean weaponEquipped = false;
@@ -18,13 +18,16 @@ public abstract class Character {
         this.health = health;
         this.weapons = new ArrayList<>();
         this.armour = new ArrayList<>();
-        this.equippedWeapon = null;
+        this.equippedWeaponIndex = -1;
         this.equippedArmour = null;
         this.baseDamage = 0;  // Initialize base damage
     }
     
     public Gear getEquippedWeapon() {
-        return equippedWeapon;
+    	if (equippedWeaponIndex == -1) {
+    		return null;
+    	}
+        return weapons.get(equippedWeaponIndex);
     }
 
     public void attack() {
@@ -42,7 +45,7 @@ public abstract class Character {
     };
     
     public void equipWeapon(Gear weapon) {
-    	this.equippedWeapon = weapon;
+    	this.equippedWeaponIndex = weapons.indexOf(weapon);
     }
 
     public void addArmour(Gear armourPiece) {
@@ -57,8 +60,8 @@ public abstract class Character {
 
     public int getTotalAttack() {
         int totalDamage = baseDamage;  // Start with base damage
-        if (equippedWeapon != null) {
-            totalDamage += equippedWeapon.getAttackBonus();  // Add weapon damage
+        if (equippedWeaponIndex != -1) {
+            totalDamage += getEquippedWeapon().getAttackBonus();  // Add weapon damage
         }
         return totalDamage;
     }
@@ -95,8 +98,8 @@ public abstract class Character {
                 System.out.println((i+1) + ": " + weapons.get(i).getName() + " (Attack: " + weapons.get(i).getAttackBonus() + ")");
             }
             
-            if (equippedWeapon != null) {
-                System.out.println("\nCurrently equipped: " + equippedWeapon.getName() + " (Attack: " + equippedWeapon.getAttackBonus() + ")");
+            if (getEquippedWeapon() != null) {
+                System.out.println("\nCurrently equipped: " + getEquippedWeapon().getName() + " (Attack: " + getEquippedWeapon().getAttackBonus() + ")");
             }
             
             System.out.println("\nChoose weapon to equip (enter number):");
@@ -104,21 +107,10 @@ public abstract class Character {
             scanner.nextLine();
             
             if (weaponChoice > 0 && weaponChoice <= weapons.size()) {
-                // Get the weapon they want to equip
-                Gear weaponToEquip = weapons.get(weaponChoice - 1);
-                
-                // Remove the chosen weapon from inventory
-                weapons.remove(weaponChoice - 1);
-                
-                // If there was a weapon equipped, add it to inventory
-                if (equippedWeapon != null) {
-                    weapons.add(equippedWeapon);
-                }
-                
                 // Equip the new weapon
-                equipWeapon(weaponToEquip);
+                equipWeapon(weapons.get(weaponChoice -1));
                 
-                System.out.println("\nYou equipped the " + weaponToEquip.getName());
+                System.out.println("\nYou equipped the " + getEquippedWeapon().getName());
                 displayStats();
             } else {
                 System.out.println("Invalid weapon choice!");
