@@ -17,8 +17,11 @@ public class RogueLite {
         boolean endRun = false;
         displayWelcomeMessage(); // Welcome message
         chooseClass();           // Choose class
+        displayBreakLine();
         createCharacter();       // Create character
+        displayBreakLine();
         enterDungeon();          // Enter the dungeon
+        displayBreakLine();
 
         while (!endRun) {
             choosePath();
@@ -148,5 +151,9 @@ public class RogueLite {
             case 8 -> new AltarOfSacrifice();
             default -> null;
         };
+    }
+    
+    public static void displayBreakLine() {
+    	System.out.println("----------------------------------------------------------------------------------");
     }
 }

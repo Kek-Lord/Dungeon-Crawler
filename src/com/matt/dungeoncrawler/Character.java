@@ -2,10 +2,11 @@ package com.matt.dungeoncrawler;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import encounters.*;
 
 public abstract class Character {
 	String name;
-    int health;
+    public int health;
     ArrayList<Gear> weapons;
     ArrayList<Gear> armour;
     int equippedWeaponIndex;
@@ -30,9 +31,7 @@ public abstract class Character {
         return weapons.get(equippedWeaponIndex);
     }
 
-    public void attack() {
-        System.out.println(name + " is attacking!");
-    };
+    public abstract void takeTurn(Scanner scanner, Character playerCharacter, Enemy enemy);
 
     public void increaseHealth(int amount) {
         health += amount;
@@ -73,6 +72,8 @@ public abstract class Character {
         return 0;
     };
     
+    
+    // Change gear logic
     public void changeGear(Scanner scanner) {
         System.out.println("Would you like to change any of your equipped gear? y/n");
         String choice = scanner.nextLine();
